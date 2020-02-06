@@ -1,0 +1,41 @@
+{
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "no-restricted-syntax": 0,
+    "no-await-in-loop": 0,
+    "object-curly-newline": 0,
+    "no-mixed-operators": 0,
+    "no-console": 0,
+    "no-underscore-dangle": 0,
+    "no-global-assign": 0,
+    "import/prefer-default-export": 0,
+    "import/no-named-as-default": 0,
+    "max-lines": [
+      "error",
+      {
+        "max": 450,
+        "skipBlankLines": true,
+        "skipComments": true
+      }
+    ],
+    "max-len": [
+      "error",
+      150,
+      {
+        "ignoreComments": true
+      }
+    ],
+    "curly": 0,
+    "consistent-return": 0,
+    "arrow-parens": 0,
+    "no-return-assign": 0,
+    "comma-dangle": 0,
+    "no-multi-str": 0
+  },
+  "plugins": ["prettier"]
+}
