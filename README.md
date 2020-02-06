@@ -11,6 +11,13 @@ To make it easier for me to develop locally, I created a `docker-compose.yml` fi
 
 You can still run the project like the initial base app by having mongo installed locally and by launching the server and then the client app. (Please refer to the README from the original repo)
 
+---
+
+I added some basic packages and configurations I like to use in my personnal projects. 
+
+- Babel configuration to support ES6 syntax on the server
+- ESLint + Prettier to help me to point out issues quickly and to maintain a consistent syntax accross all the files
+
 ### 1 - User account management
 
 Working on it...
