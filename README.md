@@ -3,7 +3,7 @@
 
 This is my forked repo from the Alaya dev challenge. Here you'll find my final result and some explaination on how I implemented the requested features.
 
-## Show us your skills :)
+## Happy reviewing :)
 
 ### 0 - Base app changes
 
