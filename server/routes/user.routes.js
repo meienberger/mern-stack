@@ -9,6 +9,10 @@ const routes = (app, prefix) => {
   app.post(`${prefix}/register`, (req, res) => {
     UserController.createUser(req, res)
   })
+
+  app.post(`${prefix}/login`, (req, res) => {
+    UserController.login(req, res)
+  })
 }
 
 export default routes
