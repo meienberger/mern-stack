@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import { PostRoutes } from './routes'
+import routes from './routes'
 import { PORT } from './config'
 import DBConnection from './db'
 
@@ -11,7 +11,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 app.use(bodyParser.json())
 
-app.use('/api', PostRoutes)
+// Routes
+routes(app, '/api')
 
 // Init MongoDB connection
 const dbConn = new DBConnection()

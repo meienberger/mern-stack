@@ -1,18 +1,29 @@
-import express from 'express'
 import { PostController } from '../controllers'
 
-const router = express.Router()
+/**
+ * Routes
+ * @param {Object} app
+ */
+const routes = (app, prefix) => {
+  // Get all Posts
+  app.get(`${prefix}/posts`, (req, res) => {
+    PostController.getPosts(req, res)
+  })
 
-// Get all Posts
-router.route('/posts').get(PostController.getPosts)
+  // Get one post by cuid
+  app.get(`${prefix}/posts/:cuid`, (req, res) => {
+    PostController.getPost(req, res)
+  })
 
-// Get one post by cuid
-router.route('/posts/:cuid').get(PostController.getPost)
+  // Add a new Post
+  app.post(`${prefix}/posts`, (req, res) => {
+    PostController.addPost(req, res)
+  })
 
-// Add a new Post
-router.route('/posts').post(PostController.addPost)
+  // Delete a post by cuid
+  app.delete(`${prefix}/posts/:cuid`, (req, res) => {
+    PostController.deletePost(req, res)
+  })
+}
 
-// Delete a post by cuid
-router.route('/posts/:cuid').delete(PostController.deletePost)
-
-export default router
+export default routes
