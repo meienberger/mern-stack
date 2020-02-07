@@ -1,0 +1,36 @@
+version: '3.1'
+
+services:
+    db:
+        container_name: mongo
+        restart: unless-stopped
+        image: 'mongo'
+        ports:
+            - '27018:27017'
+        volumes:
+            - db_data:/data/db
+    server:
+        build:
+            dockerfile: Dockerfile
+            context: ./server
+        restart: unless-stopped
+        ports:
+            - '3000:3000'
+        links:
+            - db
+        depends_on:
+            - db
+        environment:
+            MONGO_URI: mongodb://mongo:27017/mern-stack
+    client:
+        build:
+            dockerfile: Dockerfile
+            context: ./client
+        restart: unless-stopped
+        ports:
+            - '8000:8000'
+        depends_on:
+            - server
+
+volumes:
+    db_data:

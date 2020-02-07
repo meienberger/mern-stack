@@ -1,7 +1,7 @@
-const cuid = require('cuid')
-const slug = require('limax')
-const sanitizeHtml = require('sanitize-html')
-const Post = require('../../models/post')
+import cuid from 'cuid'
+import slug from 'limax'
+import sanitizeHtml from 'sanitize-html'
+import { Post } from '../../models'
 
 /**
  * Get all posts
@@ -10,7 +10,7 @@ const Post = require('../../models/post')
  * @returns void
  */
 const getPosts = async (req, res) => {
-  Post.find()
+  Post.find({})
     .sort('-dateAdded')
     .exec((err, posts) => {
       if (err) {
