@@ -20,6 +20,53 @@ I added some basic packages and configurations I like to use in my personnal pro
 - Babel configuration to support ES6 syntax on the server
 - ESLint + Prettier to help me to point out issues quickly and to maintain a consistent syntax accross all the files
 
+I also refactored the client app structure to separate every part of the app in it's own directory (Pages, Components, Redux)
+
+```bash
+├── Dockerfile
+├── package.json
+├── public
+├── src
+│   ├── App.css
+│   ├── App.js
+│   ├── App.test.js
+│   ├── components
+│   │   ├── Nav
+│   │   │   ├── Navbar.js
+│   │   │   └── index.js
+│   │   ├── Post
+│   │   │   ├── PostCreateWidget.js
+│   │   │   ├── PostList.js
+│   │   │   ├── PostListItem.js
+│   │   │   └── index.js
+│   │   └── index.js
+│   ├── pages
+│   │   ├── LoginPage
+│   │   │   ├── LoginPage.js
+│   │   │   └── index.js
+│   │   ├── PostDetailPage
+│   │   │   ├── PostDetailPage.js
+│   │   │   └── index.js
+│   │   ├── PostListPage
+│   │   │   ├── PostListPage.js
+│   │   │   └── index.js
+│   │   └── index.js
+│   ├── redux
+│   │   ├── actions
+│   │   │   ├── PostActions.js
+│   │   │   └── index.js
+│   │   ├── reducers
+│   │   │   ├── PostReducer.js
+│   │   │   └── index.js
+│   │   └── types.js
+│   └── util
+│       └── apiCaller.js
+│   ├── setupTests.js
+│   ├── index.css
+│   ├── index.js
+└──
+```
+
 ### 1 - User account management
 
 Working on it...
