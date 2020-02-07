@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // Import Actions
-import { fetchPost } from '../../PostActions'
+// import { fetchPost } from '../../PostActions'
 // Import Selectors
 import { useParams } from 'react-router-dom'
+import { fetchPost } from '../../redux/actions'
 
 export function PostDetailPage() {
   const { cuid } = useParams()

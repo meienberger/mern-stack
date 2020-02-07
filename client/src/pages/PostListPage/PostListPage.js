@@ -2,14 +2,13 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 // Import Components
-import PostList from '../../components/PostList'
-import PostCreateWidget from '../../components/PostCreateWidget'
+import { PostCreateWidget, PostList } from '../../components'
 // Import Actions
 import {
+  fetchPosts,
   addPostRequest,
   deletePostRequest,
-  fetchPosts,
-} from '../../PostActions'
+} from '../../redux/actions'
 
 const PostListPage = ({ showAddPost }) => {
   const dispatch = useDispatch()

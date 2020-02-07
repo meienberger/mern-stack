@@ -13,6 +13,11 @@ function Navbar() {
             Home
           </Link>
         </Typography>
+        <Typography style={{ marginLeft: 20 }} variant="h6">
+          <Link href="/login" className="text-white">
+            Login
+          </Link>
+        </Typography>
       </Toolbar>
     </AppBar>
   )

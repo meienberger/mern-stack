@@ -1,4 +1,4 @@
-import callApi from '../util/apiCaller'
+import callApi from '../../util/apiCaller'
 
 // Export Constants
 export const ADD_POST = 'ADD_POST'
@@ -21,7 +21,13 @@ export function addPostRequest(post) {
         title: post.title,
         content: post.content,
       },
-    }).then(res => dispatch(addPost(res.post)))
+    }).then(res => {
+      if (res.error) {
+        alert(res.error)
+      } else {
+        dispatch(addPost(res.post))
+      }
+    })
   }
 }
 
@@ -35,14 +41,24 @@ export function addPosts(posts) {
 export function fetchPosts() {
   return dispatch => {
     return callApi('posts').then(res => {
-      dispatch(addPosts(res.posts))
+      if (res.error) {
+        alert(res.error)
+      } else {
+        dispatch(addPosts(res.posts))
+      }
     })
   }
 }
 
 export function fetchPost(cuid) {
   return dispatch => {
-    return callApi(`posts/${cuid}`).then(res => dispatch(addPost(res.post)))
+    return callApi(`posts/${cuid}`).then(res => {
+      if (res.error) {
+        alert(res.error)
+      } else {
+        dispatch(addPost(res.post))
+      }
+    })
   }
 }
 
@@ -55,8 +71,12 @@ export function deletePost(cuid) {
 
 export function deletePostRequest(cuid) {
   return dispatch => {
-    return callApi(`posts/${cuid}`, 'delete').then(() =>
-      dispatch(deletePost(cuid))
-    )
+    return callApi(`posts/${cuid}`, 'delete').then(res => {
+      if (res.error) {
+        alert(res.error)
+      } else {
+        dispatch(deletePost(cuid))
+      }
+    })
   }
 }
