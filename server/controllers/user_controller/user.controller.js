@@ -34,7 +34,7 @@ const login = async (req, res) => {
         error: 'Incorrect password',
       })
     } else {
-      // Create token
+      // Create JWT token
       const payload = { email }
       const token = jwt.sign(payload, JWT_SECRET, {
         expiresIn: '1h',

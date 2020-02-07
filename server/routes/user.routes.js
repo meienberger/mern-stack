@@ -1,4 +1,5 @@
 import { UserController } from '../controllers'
+import { withAuth } from '../middlewares'
 
 /**
  * Routes
@@ -12,6 +13,10 @@ const routes = (app, prefix) => {
 
   app.post(`${prefix}/login`, (req, res) => {
     UserController.login(req, res)
+  })
+
+  app.get('/validate_token', withAuth, (req, res) => {
+    res.sendStatus(200)
   })
 }
 

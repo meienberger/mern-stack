@@ -1,4 +1,5 @@
 import { PostController } from '../controllers'
+import { withAuth } from '../middlewares'
 
 /**
  * Routes
@@ -16,12 +17,12 @@ const routes = (app, prefix) => {
   })
 
   // Add a new Post
-  app.post(`${prefix}/posts`, (req, res) => {
+  app.post(`${prefix}/posts`, withAuth, (req, res) => {
     PostController.addPost(req, res)
   })
 
   // Delete a post by cuid
-  app.delete(`${prefix}/posts/:cuid`, (req, res) => {
+  app.delete(`${prefix}/posts/:cuid`, withAuth, (req, res) => {
     PostController.deletePost(req, res)
   })
 }
