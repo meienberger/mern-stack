@@ -1,9 +1,5 @@
 import callApi from '../../util/apiCaller'
-
-// Export Constants
-export const ADD_POST = 'ADD_POST'
-export const ADD_POSTS = 'ADD_POSTS'
-export const DELETE_POST = 'DELETE_POST'
+import { ADD_POST, DELETE_POST, ADD_POSTS } from '../types'
 
 // Export Actions
 export function addPost(post) {

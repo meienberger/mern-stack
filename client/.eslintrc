@@ -5,14 +5,7 @@
     "plugin:react/recommended"
   ],
   "parser": "babel-eslint",
-  "settings": {
-    "import/resolver": {
-      "babel-plugin-root-import": {
-        "rootPathPrefix": "",
-        "rootPathSuffix": ""
-      }
-    }
-  },
+  "settings": {},
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -23,6 +16,7 @@
         "devDependencies": true
       }
     ],
+    "no-alert": 0,
     "quotes": ["warn", "single"],
     "no-restricted-syntax": 0,
     "no-await-in-loop": 0,

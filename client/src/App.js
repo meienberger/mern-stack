@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Navbar from './components/Nav/Navbar'
-import { PostListPage, PostDetailPage } from './pages'
+import { PostListPage, PostDetailPage, LoginPage } from './pages'
 
 function App(props) {
   return (
@@ -22,7 +22,7 @@ function App(props) {
                 exact
                 component={PostDetailPage}
               />
-              {/* <Route path="/login" exact component={} /> */}
+              <Route path="/login" exact component={LoginPage} />
             </Switch>
           </BrowserRouter>
         </Provider>

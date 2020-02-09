@@ -1,23 +1,18 @@
-import { ADD_POST, ADD_POSTS, DELETE_POST } from '../types'
+import { LOGIN_USER, SIGNUP_USER } from '../types'
 
 // Initial State
-const initialState = { data: [] }
+const initialState = {}
 
 const PostReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_POST:
+    case LOGIN_USER:
       return {
-        data: [action.post, ...state.data],
+        ...action.data,
       }
 
-    case ADD_POSTS:
+    case SIGNUP_USER:
       return {
-        data: action.posts,
-      }
-
-    case DELETE_POST:
-      return {
-        data: state.data.filter(post => post.cuid !== action.cuid),
+        ...action.data,
       }
 
     default:

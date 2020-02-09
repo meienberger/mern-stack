@@ -17,14 +17,15 @@ const PostCreateWidget = ({ addPost }) => {
   const [state, setState] = useState({})
   const classes = useStyles()
 
-  const submit = () => {
+  const submit = async () => {
     if (state.name && state.title && state.content) {
       addPost(state)
     }
   }
 
   const handleChange = evt => {
-    const value = evt.target.value
+    const { value } = evt.target
+
     setState({
       ...state,
       [evt.target.name]: value,

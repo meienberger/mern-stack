@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 // Import Actions
-// import { fetchPost } from '../../PostActions'
-// Import Selectors
 import { useParams } from 'react-router-dom'
 import { fetchPost } from '../../redux/actions'
+// Import Selectors
 
 export function PostDetailPage() {
   const { cuid } = useParams()
@@ -15,7 +14,7 @@ export function PostDetailPage() {
 
   useEffect(() => {
     if (!post) dispatch(fetchPost(cuid))
-  }, [])
+  }, [cuid, dispatch, post])
 
   return post ? (
     <div className="container">
