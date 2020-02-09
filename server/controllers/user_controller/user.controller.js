@@ -5,15 +5,28 @@ import { JWT_SECRET } from '../../config'
 const createUser = async (req, res) => {
   const { email, password } = req.body
 
+  const registeredUser = await User.findOne({ email })
+
+  if (registeredUser) {
+    res.status(500).json({ error: 'Email already in use' })
+  }
+
   const user = await User.create({
     email,
     password,
   })
 
-  if (user) {
-    res.status(500).send('Error registering new user please try again.')
+  if (!user) {
+    res
+      .status(500)
+      .json({ error: 'Error registering new user please try again.' })
   } else {
-    res.status(200).send('Registration successful')
+    const payload = { email }
+    const token = jwt.sign(payload, JWT_SECRET, {
+      expiresIn: '1h',
+    })
+
+    res.cookie('token', token, { httpOnly: true }).sendStatus(200)
   }
 }
 
@@ -45,7 +58,12 @@ const login = async (req, res) => {
   })
 }
 
+const getUser = async (req, res) => {
+  console.log(req.cookie)
+}
+
 export default {
   createUser,
   login,
+  getUser,
 }

@@ -7,7 +7,7 @@ import { withAuth } from '../middlewares'
  */
 const routes = (app, prefix) => {
   // Register user
-  app.post(`${prefix}/register`, (req, res) => {
+  app.post(`${prefix}/signup`, (req, res) => {
     UserController.createUser(req, res)
   })
 
