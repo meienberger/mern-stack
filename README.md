@@ -95,4 +95,6 @@ The token is refreshed on every app load.
 
 ### 2 - Picture upload
 
-I choose to use [Cloudinary](cloudinary.com) to support file upload. The process is very simple. I added an image field inside the `CreatePostWidget` where users can upload a custom image for the post. Then the Cloudinary API is called with the file to upload. I then just store the result url as a `String` inside the `Post`
+I choose to use [Cloudinary](https://cloudinary.com) to support file upload. The process is very simple. I added an image field inside the `CreatePostWidget` where users can upload a custom image for the post. Then the Cloudinary API is called with the file to upload. I then just store the result url as a `String` inside the `Post`.
+
+I didn't want to manage this server side because I thought it was a little bit overkill for the scope of this test. Thus the `CLOUDINARY_UPLOAD_PRESET` is stored on the client.
