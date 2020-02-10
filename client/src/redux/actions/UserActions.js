@@ -1,10 +1,23 @@
 import callApi from '../../util/apiCaller'
-import { LOGIN_USER, SIGNUP_USER } from '../types'
+import { GET_USER, LOGOUT_USER } from '../types'
+import { setCookie } from '../../util/cookie'
 
-export function loginUser(data) {
+function getUser(data) {
   return {
-    type: LOGIN_USER,
+    type: GET_USER,
     data,
+  }
+}
+
+export function getUserRequest() {
+  return dispatch => {
+    return callApi('user', 'get').then(res => {
+      if (!res.error) {
+        dispatch(getUser(res.data))
+      } else {
+        alert(res.error)
+      }
+    })
   }
 }
 
@@ -17,16 +30,11 @@ export function loginUserRequest({ email, password }) {
       if (res.error) {
         alert(res.error)
       } else {
-        dispatch(loginUser(res.data))
+        console.log(res.data)
+        setCookie('token', res.data.token)
+        dispatch(getUserRequest())
       }
     })
-  }
-}
-
-export function signUpUser(data) {
-  return {
-    type: SIGNUP_USER,
-    data,
   }
 }
 
@@ -36,11 +44,29 @@ export function signUpRequest({ email, password }) {
       email,
       password,
     }).then(res => {
-      console.log('FDP', res)
       if (res.error) {
         alert(res.error)
       } else {
-        dispatch(signUpUser(res.data))
+        dispatch(getUserRequest())
+      }
+    })
+  }
+}
+
+function logoutUser() {
+  return {
+    type: LOGOUT_USER,
+  }
+}
+
+export function logoutUserRequest() {
+  return dispatch => {
+    return callApi('logout', 'post').then(res => {
+      if (res.error) {
+        alert(res.error)
+      } else {
+        setCookie('token', null)
+        dispatch(logoutUser())
       }
     })
   }

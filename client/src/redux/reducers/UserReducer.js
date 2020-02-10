@@ -1,19 +1,15 @@
-import { LOGIN_USER, SIGNUP_USER } from '../types'
+import { GET_USER, LOGOUT_USER } from '../types'
 
 // Initial State
-const initialState = {}
+const initialState = null
 
 const PostReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_USER:
-      return {
-        ...action.data,
-      }
+    case GET_USER:
+      return action.data
 
-    case SIGNUP_USER:
-      return {
-        ...action.data,
-      }
+    case LOGOUT_USER:
+      return null
 
     default:
       return state
@@ -21,13 +17,6 @@ const PostReducer = (state = initialState, action) => {
 }
 
 /* Selectors */
-
-// Get all posts
-export const getPosts = state => state.posts.data
-
-// Get post by cuid
-export const getPost = (state, cuid) =>
-  state.posts.data.filter(post => post.cuid === cuid)[0]
 
 // Export Reducer
 export default PostReducer

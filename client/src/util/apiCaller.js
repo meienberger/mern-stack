@@ -4,6 +4,7 @@ export const API_URL = 'http://localhost:3000/api'
 
 export default async (endpoint, method = 'get', body) => {
   return fetch(`${API_URL}/${endpoint}`, {
+    credentials: 'include',
     headers: { 'content-type': 'application/json' },
     method,
     body: JSON.stringify(body),
@@ -20,4 +21,6 @@ export default async (endpoint, method = 'get', body) => {
       response => response,
       error => error
     )
+
+    .catch(e => console.error(e))
 }

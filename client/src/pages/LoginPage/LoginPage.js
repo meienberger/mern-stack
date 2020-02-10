@@ -1,8 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { TextField, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { useDispatch } from 'react-redux'
-import { loginUserRequest, signUpRequest } from '../../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import {
+  loginUserRequest,
+  signUpRequest,
+  getUserRequest,
+} from '../../redux/actions'
 import { LoginForm, SignUpForm } from '../../components'
 // Import Style
 
@@ -16,6 +21,8 @@ const useStyles = makeStyles(theme => ({
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true)
+  const user = useSelector(state => state.user)
+
   const classes = useStyles()
   const dispatch = useDispatch()
 
@@ -29,6 +36,14 @@ const LoginPage = () => {
     } else {
       alert('Error : Passwords are not matching.')
     }
+  }
+
+  useEffect(() => {
+    dispatch(getUserRequest())
+  }, [dispatch])
+
+  if (user) {
+    return <Redirect to="/" />
   }
 
   return (

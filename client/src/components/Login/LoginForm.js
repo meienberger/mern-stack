@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
 
-const LoginForm = ({ submit, register }) => {
+const LoginForm = ({ submit, register, loading }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -27,7 +27,7 @@ const LoginForm = ({ submit, register }) => {
         variant="contained"
         color="primary"
         onClick={() => submit({ email, password })}
-        disabled={!email || !password}
+        disabled={!email || !password || loading}
       >
         Login
       </Button>
