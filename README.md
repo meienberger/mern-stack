@@ -1,61 +1,107 @@
 
-# Alaya mern dev challenge 
+# Alaya MERN dev challenge | Nicolas Meienberger's application 👨🏻‍💻
 
+This is my forked repo from the Alaya dev challenge. Here you'll find my final result and some explaination on how I implemented the requested features. 
 
-In this project which is a MERN stack you can write and edit post blog.
+## Happy reviewing :)
 
-This application is composed by 2 repositories, the server and the client:
+### 0 - Base app changes
 
-- In the server repository you can find an express HTTP server that connect to a local mongo database and expose
-the api.
-To start the server be sure to have installed mongoDB locally as a service then go in the server repository and launch the index.js
-```$xslt
-    cd server
-    npm i
-    node index.js
+🐳 To make it easier for me to develop locally, I created a `docker-compose.yml` file which runs the whole project as 3 containers (db, server, client) without any further configuration.
+
+Just run `docker-compose up` inside the root directory of the project.
+
+You can still run the project like the initial base app by having mongo installed locally and by launching the server and then the client app. (Please refer to the [README](https://github.com/Onigam/mern-stack/blob/master/README.md) from the original repo)
+
+If you want to start the project manually (without docker) be sure to install `node_modules` in both client and server and you should use my start script on the server (`yarn start` or `npm run start`) to support the custom babel configuration.
+
+---
+
+📦 I added some basic packages and configurations I like to use in my personnal projects. 
+
+- Babel configuration to support ES6 syntax on the server
+- ESLint + Prettier to help me to point out issues quickly and to maintain a consistent syntax accross all the files
+
+---
+
+🗂 I also refactored the client app structure to separate every part of the app in it's own directory (Pages, Components, Redux)
+
+```bash
+├── Dockerfile
+├── package.json
+├── src
+│   ├── App.css
+│   ├── App.js
+│   ├── index.css
+│   ├── index.js
+│   ├── components
+│   │   ├── Login
+│   │   │   ├── LoginForm.js
+│   │   │   ├── SignUpForm.js
+│   │   │   └── index.js
+│   │   ├── Nav
+│   │   │   ├── Navbar.js
+│   │   │   └── index.js
+│   │   ├── Post
+│   │   │   ├── PostCreateWidget.js
+│   │   │   ├── PostList.js
+│   │   │   ├── PostListItem.js
+│   │   │   └── index.js
+│   │   └── index.js
+│   ├── pages
+│   │   ├── LoginPage
+│   │   │   ├── LoginPage.js
+│   │   │   └── index.js
+│   │   ├── PostDetailPage
+│   │   │   ├── PostDetailPage.js
+│   │   │   └── index.js
+│   │   ├── PostListPage
+│   │   │   ├── PostListPage.js
+│   │   │   └── index.js
+│   │   └── index.js
+│   ├── redux
+│   │   ├── actions
+│   │   │   ├── AuthActions.js
+│   │   │   ├── PostActions.js
+│   │   │   └── index.js
+│   │   ├── reducers
+│   │   │   ├── AuthReducer.js
+│   │   │   ├── PostReducer.js
+│   │   │   └── index.js
+│   │   └── types.js
+│   └── util
+│       ├── apiCaller.js
+│       ├── cookie.js
+│       └── regex.js
+└──
 ```
-If you want to restart the server at any change you can also install nodemon and start the server like this
+
+---
+
+⚠️ Before running the project, you need to create a `.env` file inside the root directory of the server. There is a `.env.example` file to help you with the required vars.
+
 ```
-    cd server
-    npm i
-    npm i -g nodemon
-    nodemon index.js
-```
-- In the client repository you have the Front-end code of the blog that uses React and Redux.
-To start the Front-end
-```
-    cd client
-    npm i
-    npm start
+MONGO_URI=
+PORT=
+JWT_SECRET=
 ```
 
+**MONGO_URI** should be `mongodb://127.0.0.1:27017/mern-stack`, **PORT** : `3000` and **JWT_SECRET** can be anything you want.
 
-## Show us your skills :)
+### 1 - User account management 🔐
 
-To show us your skills we would like you to build theses 2 things:
+To manage users I created a Token based system using JWT. When the user is registering for an account, a new db entry is created and their password is hashed using `bcrypt`. Then the server creates a token and send it back to the client as a Cookie.
 
-### 1 - User account management
+Every request from the client includes the cookie and on the server I created a middleware to check if token is valid and to secure sensitive routes. (`middlewares/withAuth.js`).
 
-At first we want the users to be able to create their account to post Articles.
+If the token is inexistant or invalid, the server sends back an error telling the user to log in before performing the action (like create a post).
 
-To do that you need to create a login page or dialog and a signup process.
+If the token is valid, the middleware adds the user's email in `req.email` to be used by the controllers (for example check if the post to delete is from the same user)
 
-We want you to use JWT to manage user session https://jwt.io/, to do that you can use passport with a JWT policy.
+The token is refreshed on every app load.
 
-Only connected users will be able to create post, and only the author of the post will be able to delete it
+### 2 - Picture upload 🌅
 
-### 2 - Picture upload
+I choose to use [Cloudinary](https://cloudinary.com) to support file upload. The process is very simple. I added an image field inside the `CreatePostWidget` where users can upload a custom image for the post. Then the Cloudinary API is called with the file to upload. I then just store the result url as a `String` inside the `Post`.
 
-Here we want the user to be able to upload and manage pictures on his post.
-
-Free to you to use the service you want to do that and to store your assets (like Cloudinary for example).
-
-The purpose is to enhance post with media.
-
-You can design the layout you want on cards and on each post page.
-
-Also if you want to add one or more features or change the layout, styling and theming about the blog you can.
-
-Good luck :)
-
-_Notes: For evaluation, we will mainly focus on the code structure and readability, the separation of responsibilities in the methods/components, and the visual consistency._
+I didn't want to manage this server side because I thought it was a little bit overkill for the scope of this test. Thus the `CLOUDINARY_UPLOAD_PRESET` is stored on the client.
