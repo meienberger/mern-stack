@@ -43,8 +43,7 @@ const LoginPage = () => {
       <div className="row">
         <div className="col-12">
           <h1 className="mt-4">
-            {' '}
-            {isLogin ? 'Login to your account' : 'Register a new account'}{' '}
+            {isLogin ? 'Login to your account' : 'Register a new account'}
           </h1>
         </div>
       </div>
