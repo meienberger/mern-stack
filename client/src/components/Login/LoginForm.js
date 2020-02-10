@@ -13,7 +13,7 @@ const LoginForm = ({ submit, register, loading }) => {
         label="Email"
         name="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value.toLowerCase())}
       />
       <TextField
         variant="filled"

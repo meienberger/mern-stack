@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
 function PostListItem({ post, onDelete }) {
   const classes = useStyles()
 
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.auth.user)
 
   return (
     <Card className="w-100 my-4">

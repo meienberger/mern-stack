@@ -13,7 +13,7 @@ import {
 const PostListPage = () => {
   const dispatch = useDispatch()
   const posts = useSelector(state => state.posts.data)
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.auth.user)
 
   useEffect(() => {
     dispatch(fetchPosts())

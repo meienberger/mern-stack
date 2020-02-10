@@ -75,16 +75,19 @@ const deletePost = async (req, res) => {
 
   if (!post) {
     res.status(500).json({ error: 'Error deleting post. Post not found.' })
+    return null
   }
 
   if (post.user !== req.email) {
     res
       .status(500)
       .json({ error: "You are not allowed to delete other user's posts" })
-  } else {
-    await post.remove()
-    res.status(200).end()
+
+    return null
   }
+
+  await post.remove()
+  res.status(200).end()
 }
 
 export default {

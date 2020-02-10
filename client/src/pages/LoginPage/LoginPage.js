@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import {
-  loginUserRequest,
-  signUpRequest,
-  getUserRequest,
-} from '../../redux/actions'
+import { loginUserRequest, signUpRequest } from '../../redux/actions'
 import { LoginForm, SignUpForm } from '../../components'
 // Import Style
 
@@ -20,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true)
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.auth.user)
 
   const classes = useStyles()
   const dispatch = useDispatch()
@@ -37,10 +33,6 @@ const LoginPage = () => {
       alert('Error : Passwords are not matching.')
     }
   }
-
-  useEffect(() => {
-    dispatch(getUserRequest())
-  }, [dispatch])
 
   if (user) {
     return <Redirect to="/" />
