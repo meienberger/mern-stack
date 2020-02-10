@@ -13,6 +13,8 @@ just run `docker-compose up` inside the root directory of the project.
 
 You can still run the project like the initial base app by having mongo installed locally and by launching the server and then the client app. (Please refer to the [README](https://github.com/Onigam/mern-stack/blob/master/README.md) from the original repo)
 
+If you want to start the project manually (without docker) be sure to install `node_modules` in both client and server and you should use my start script on the server (`yarn start` or `npm run start`) to support the custom babel configuration.
+
 ---
 
 I added some basic packages and configurations I like to use in my personnal projects. 
@@ -93,4 +95,4 @@ The token is refreshed on every app load.
 
 ### 2 - Picture upload
 
-Working on it...
+I choose to use [Cloudinary](cloudinary.com) to support file upload. The process is very simple. I added an image field inside the `CreatePostWidget` where users can upload a custom image for the post. Then the Cloudinary API is called with the file to upload. I then just store the result url as a `String` inside the `Post`
