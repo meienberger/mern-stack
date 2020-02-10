@@ -15,6 +15,14 @@ const routes = (app, prefix) => {
     UserController.login(req, res)
   })
 
+  app.get(`${prefix}/user`, (req, res) => {
+    UserController.getUser(req, res)
+  })
+
+  app.post(`${prefix}/logout`, (req, res) => {
+    UserController.logout(req, res)
+  })
+
   app.get('/validate_token', withAuth, (req, res) => {
     res.sendStatus(200)
   })

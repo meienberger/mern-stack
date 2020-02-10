@@ -8,8 +8,16 @@ import DBConnection from './db'
 
 const app = express()
 
+// Options to allow credentials to be sent to server. (cookies)
+const corsOptions = {
+  origin(origin, callback) {
+    callback(null, true)
+  },
+  credentials: true,
+}
+
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(cookieParser())
 

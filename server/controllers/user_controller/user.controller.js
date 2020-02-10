@@ -37,7 +37,7 @@ const login = async (req, res) => {
 
   if (!user) res.status(500).json({ error: 'No user found for given email' })
 
-  user.isCorrectPassword(password, (err, same) => {
+  user.checkPassword(password, (err, same) => {
     if (err) {
       res.status(500).json({
         error: 'Internal error please try again',
@@ -53,17 +53,38 @@ const login = async (req, res) => {
         expiresIn: '1h',
       })
 
-      res.cookie('token', token, { httpOnly: true }).sendStatus(200)
+      res.cookie('token', token, { httpOnly: true })
+      res.status(200).json({ token })
     }
   })
 }
 
+const logout = async (req, res) => {
+  res.clearCookie('token')
+  res.status(200).json({ data: 'logout successful' })
+}
+
 const getUser = async (req, res) => {
-  console.log(req.cookie)
+  const { token } = req.cookies
+
+  await jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+    if (!err) {
+      const user = await User.findOne({ email: decoded.email })
+
+      if (!user) {
+        res.status(200).json({ data: null })
+      }
+
+      res.status(200).json({ data: user })
+    } else {
+      res.status(200).json({ data: null })
+    }
+  })
 }
 
 export default {
   createUser,
   login,
+  logout,
   getUser,
 }
