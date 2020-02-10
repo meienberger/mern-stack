@@ -48,13 +48,8 @@ function PostListItem({ post, onDelete }) {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {post.name ? post.name[0].toUpperCase() : '.'}
           </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            {/* <MoreVertIcon /> */}
-          </IconButton>
         }
         title={post.title}
         subheader={post.dateAdded}
@@ -68,7 +63,8 @@ function PostListItem({ post, onDelete }) {
       )}
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          {post.content}
+          {post.content.substring(0, 300)}
+          {post.content.length > 300 ? '...' : ''}
         </Typography>
         <Typography
           color="textSecondary"
