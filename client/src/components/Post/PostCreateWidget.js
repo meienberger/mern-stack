@@ -30,12 +30,10 @@ const PostCreateWidget = ({ addPost }) => {
     onChange(info) {
       const { status } = info.file
 
-      if (status !== 'uploading') {
-        // (info.file, info.fileList)
-      }
       if (status === 'done') {
         setImage(info.file.response.url)
       } else if (status === 'error') {
+        // eslint-disable-next-line no-undef
         alert(`${info.file.name}, l'upload a échoué.`)
       }
     },

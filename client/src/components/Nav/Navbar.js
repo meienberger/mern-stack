@@ -7,14 +7,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getUserRequest, logoutUserRequest } from '../../redux/actions'
 
 function Navbar() {
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.auth.user)
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getUserRequest())
   }, [dispatch])
-
-  console.log(user)
 
   return (
     <AppBar position="fixed">

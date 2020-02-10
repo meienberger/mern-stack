@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
+import PropTypes from 'prop-types'
 
 const LoginForm = ({ submit, register, loading }) => {
   const [email, setEmail] = useState('')
@@ -12,7 +13,7 @@ const LoginForm = ({ submit, register, loading }) => {
         label="Email"
         name="email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
+        onChange={e => setEmail(e.target.value.toLowerCase())}
       />
       <TextField
         variant="filled"
@@ -32,7 +33,7 @@ const LoginForm = ({ submit, register, loading }) => {
         Login
       </Button>
       <p>
-        Don't have an account yet ?{' '}
+        {"Don't have an account yet ? "}
         <a
           style={{ color: 'blue', cursor: 'pointer' }}
           onClick={() => register()}
@@ -42,6 +43,12 @@ const LoginForm = ({ submit, register, loading }) => {
       </p>
     </>
   )
+}
+
+LoginForm.propTypes = {
+  submit: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 }
 
 export default LoginForm

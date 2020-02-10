@@ -2,7 +2,6 @@ import cuid from 'cuid'
 import slug from 'limax'
 import sanitizeHtml from 'sanitize-html'
 import { Post } from '../../models'
-import { tradeTokenForUser } from '../../util/auth'
 
 /**
  * Get all posts
@@ -28,21 +27,11 @@ const getPosts = async (req, res) => {
  * @returns void
  */
 const addPost = async (req, res) => {
-  const { token } = req.cookies
-
-  const user = await tradeTokenForUser(token)
-
   if (!req.body.post.name || !req.body.post.title || !req.body.post.content) {
     res.status(403).end()
   }
 
-  if (!user) {
-    res.status(500).json({
-      error: 'Error adding post (Invalid token). Please logout and login again',
-    })
-  }
-
-  const newPost = new Post({ ...req.body.post, user: user.email })
+  const newPost = new Post({ ...req.body.post, user: req.email })
 
   // Let's sanitize inputs
   newPost.title = sanitizeHtml(newPost.title)
@@ -82,24 +71,23 @@ const getPost = async (req, res) => {
  * @returns void
  */
 const deletePost = async (req, res) => {
-  const { token } = req.cookies
-
-  const user = await tradeTokenForUser(token)
-
   const post = await Post.findOne({ cuid: req.params.cuid })
 
   if (!post) {
     res.status(500).json({ error: 'Error deleting post. Post not found.' })
+    return null
   }
 
-  if (post.user !== user.email) {
+  if (post.user !== req.email) {
     res
       .status(500)
       .json({ error: "You are not allowed to delete other user's posts" })
-  } else {
-    await post.remove()
-    res.status(200).end()
+
+    return null
   }
+
+  await post.remove()
+  res.status(200).end()
 }
 
 export default {

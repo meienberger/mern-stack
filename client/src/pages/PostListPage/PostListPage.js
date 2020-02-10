@@ -1,5 +1,5 @@
+/* eslint-disable no-undef */
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
 // Import Components
 import { PostCreateWidget, PostList } from '../../components'
@@ -10,19 +10,21 @@ import {
   deletePostRequest,
 } from '../../redux/actions'
 
-const PostListPage = ({ showAddPost }) => {
+const PostListPage = () => {
   const dispatch = useDispatch()
   const posts = useSelector(state => state.posts.data)
+  const user = useSelector(state => state.auth.user)
 
   useEffect(() => {
     dispatch(fetchPosts())
   }, [dispatch])
 
   const handleDeletePost = post => {
-    // if (confirm('Do you want to delete this post')) {
-    // eslint-disable-line
-    dispatch(deletePostRequest(post))
-    // }
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('Do you want to delete this post')) {
+      // eslint-disable-line
+      dispatch(deletePostRequest(post))
+    }
   }
 
   const handleAddPost = post => {
@@ -38,19 +40,17 @@ const PostListPage = ({ showAddPost }) => {
       </div>
       <hr />
       <div className="row">
-        <div className="col-6">
-          <PostCreateWidget addPost={handleAddPost} showAddPost={showAddPost} />
-        </div>
-        <div className="col-6">
+        {user && (
+          <div className="col-6">
+            <PostCreateWidget addPost={handleAddPost} />
+          </div>
+        )}
+        <div className={`col-${user ? 6 : 12}`}>
           <PostList handleDeletePost={handleDeletePost} posts={posts} />
         </div>
       </div>
     </div>
   )
-}
-
-PostListPage.propTypes = {
-  showAddPost: PropTypes.bool.isRequired,
 }
 
 export default PostListPage

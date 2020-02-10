@@ -11,27 +11,16 @@ import Avatar from '@material-ui/core/Avatar'
 import { red } from '@material-ui/core/colors'
 import { makeStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
-// import MoreVertIcon from '@material-ui/icons/MoreVertIcon'
-import IconButton from '@material-ui/core/IconButton'
 import { useSelector } from 'react-redux'
+import moment from 'moment'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 345,
   },
   media: {
     height: 0,
     paddingTop: '56.25%', // 16:9
-  },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)',
   },
   avatar: {
     backgroundColor: red[500],
@@ -41,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 function PostListItem({ post, onDelete }) {
   const classes = useStyles()
 
-  const user = useSelector(state => state.user)
+  const user = useSelector(state => state.auth.user)
 
   return (
     <Card className="w-100 my-4">
@@ -52,7 +41,7 @@ function PostListItem({ post, onDelete }) {
           </Avatar>
         }
         title={post.title}
-        subheader={post.dateAdded}
+        subheader={moment(post.dateAdded).format('DD/MM/YYYY HH:mm')}
       />
       {post.image && (
         <CardMedia
@@ -97,6 +86,9 @@ PostListItem.propTypes = {
     content: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     cuid: PropTypes.string.isRequired,
+    dateAdded: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+    image: PropTypes.string,
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
 }

@@ -23,8 +23,8 @@ const routes = (app, prefix) => {
     UserController.logout(req, res)
   })
 
-  app.get('/validate_token', withAuth, (req, res) => {
-    res.sendStatus(200)
+  app.get(`${prefix}/refresh-token`, withAuth, (req, res) => {
+    UserController.refreshToken(req, res)
   })
 }
 

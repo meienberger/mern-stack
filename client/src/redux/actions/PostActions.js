@@ -20,6 +20,7 @@ export function addPostRequest(post) {
       },
     }).then(res => {
       if (res.error) {
+        // eslint-disable-next-line no-undef
         alert(res.error)
       } else {
         dispatch(addPost(res.post))
@@ -39,6 +40,7 @@ export function fetchPosts() {
   return dispatch => {
     return callApi('posts').then(res => {
       if (res.error) {
+        // eslint-disable-next-line no-undef
         alert(res.error)
       } else {
         dispatch(addPosts(res.posts))
@@ -51,6 +53,7 @@ export function fetchPost(cuid) {
   return dispatch => {
     return callApi(`posts/${cuid}`).then(res => {
       if (res.error) {
+        // eslint-disable-next-line no-undef
         alert(res.error)
       } else {
         dispatch(addPost(res.post))
@@ -70,6 +73,7 @@ export function deletePostRequest(cuid) {
   return dispatch => {
     return callApi(`posts/${cuid}`, 'delete').then(res => {
       if (res.error) {
+        // eslint-disable-next-line no-undef
         alert(res.error)
       } else {
         dispatch(deletePost(cuid))
