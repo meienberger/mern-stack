@@ -1,5 +1,5 @@
 
-# Alaya mern dev challenge | Nicolas Meienberger's application 👨🏻‍💻
+# Alaya MERN dev challenge | Nicolas Meienberger's application 👨🏻‍💻
 
 This is my forked repo from the Alaya dev challenge. Here you'll find my final result and some explaination on how I implemented the requested features. 
 
