@@ -9,7 +9,9 @@ This is my forked repo from the Alaya dev challenge. Here you'll find my final r
 
 🐳 To make it easier for me to develop locally, I created a `docker-compose.yml` file which runs the whole project as 3 containers (db, server, client) without any further configuration.
 
-Just run `docker-compose up` inside the root directory of the project. Client will be available at `http://localhost:8000/`
+Just run `docker-compose up` inside the root directory of the project.
+
+Client will be available at `http://localhost:8000/`
 
 You can still run the project like the initial base app by having mongo installed locally and by launching the server and then the client app. (Please refer to the [README](https://github.com/Onigam/mern-stack/blob/master/README.md) from the original repo)
 
