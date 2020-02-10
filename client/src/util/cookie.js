@@ -6,3 +6,7 @@ export const setCookie = (key, value) => {
     path: '/',
   })
 }
+
+export const removeCookie = key => {
+  cookie.remove(key)
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { TextField, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
@@ -34,6 +33,7 @@ const LoginPage = () => {
     if (password === passwordConfirm) {
       dispatch(signUpRequest({ email, password }))
     } else {
+      // eslint-disable-next-line no-undef
       alert('Error : Passwords are not matching.')
     }
   }

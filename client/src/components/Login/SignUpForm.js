@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { TextField, Button } from '@material-ui/core'
+import PropTypes from 'prop-types'
 
 const SignUpForm = ({ submit, login }) => {
   const [email, setEmail] = useState('')
@@ -48,6 +49,11 @@ const SignUpForm = ({ submit, login }) => {
       </p>
     </>
   )
+}
+
+SignUpForm.propTypes = {
+  submit: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 }
 
 export default SignUpForm

@@ -1,6 +1,6 @@
 import callApi from '../../util/apiCaller'
 import { GET_USER, LOGOUT_USER } from '../types'
-import { setCookie } from '../../util/cookie'
+import { setCookie, removeCookie } from '../../util/cookie'
 
 function getUser(data) {
   return {
@@ -15,6 +15,7 @@ export function getUserRequest() {
       if (!res.error) {
         dispatch(getUser(res.data))
       } else {
+        // eslint-disable-next-line no-undef
         alert(res.error)
       }
     })
@@ -28,10 +29,11 @@ export function loginUserRequest({ email, password }) {
       password,
     }).then(res => {
       if (res.error) {
+        // eslint-disable-next-line no-undef
         alert(res.error)
       } else {
         setCookie('token', res.token)
-        dispatch(getUserRequest())
+        dispatch(getUser(res.user))
       }
     })
   }
@@ -44,10 +46,11 @@ export function signUpRequest({ email, password }) {
       password,
     }).then(res => {
       if (res.error) {
+        // eslint-disable-next-line no-undef
         alert(res.error)
       } else {
         setCookie('token', res.token)
-        dispatch(getUserRequest())
+        dispatch(getUser(res.user))
       }
     })
   }
@@ -63,9 +66,10 @@ export function logoutUserRequest() {
   return dispatch => {
     return callApi('logout', 'post').then(res => {
       if (res.error) {
+        // eslint-disable-next-line no-undef
         alert(res.error)
       } else {
-        setCookie('token', null)
+        removeCookie('token')
         dispatch(logoutUser())
       }
     })

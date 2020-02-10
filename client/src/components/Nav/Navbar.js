@@ -14,8 +14,6 @@ function Navbar() {
     dispatch(getUserRequest())
   }, [dispatch])
 
-  console.log(user)
-
   return (
     <AppBar position="fixed">
       <Toolbar>
