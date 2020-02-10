@@ -29,12 +29,16 @@ If you want to start the project manually (without docker) be sure to install `n
 ```bash
 ├── Dockerfile
 ├── package.json
-├── public
 ├── src
 │   ├── App.css
 │   ├── App.js
-│   ├── App.test.js
+│   ├── index.css
+│   ├── index.js
 │   ├── components
+│   │   ├── Login
+│   │   │   ├── LoginForm.js
+│   │   │   ├── SignUpForm.js
+│   │   │   └── index.js
 │   │   ├── Nav
 │   │   │   ├── Navbar.js
 │   │   │   └── index.js
@@ -57,17 +61,18 @@ If you want to start the project manually (without docker) be sure to install `n
 │   │   └── index.js
 │   ├── redux
 │   │   ├── actions
+│   │   │   ├── AuthActions.js
 │   │   │   ├── PostActions.js
 │   │   │   └── index.js
 │   │   ├── reducers
+│   │   │   ├── AuthReducer.js
 │   │   │   ├── PostReducer.js
 │   │   │   └── index.js
 │   │   └── types.js
 │   └── util
-│       └── apiCaller.js
-│   ├── setupTests.js
-│   ├── index.css
-│   ├── index.js
+│       ├── apiCaller.js
+│       ├── cookie.js
+│       └── regex.js
 └──
 ```
 
