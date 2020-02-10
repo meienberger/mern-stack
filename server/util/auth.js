@@ -3,7 +3,7 @@ import { User } from '../models'
 import { JWT_SECRET } from '../config'
 
 export const tradeTokenForUser = async token => {
-  if (token === 'null') return null
+  if (token === 'null' || !token) return null
 
   return new Promise((resolve, reject) => {
     jwt.verify(token, JWT_SECRET, async (err, decoded) => {

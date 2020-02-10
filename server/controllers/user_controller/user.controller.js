@@ -28,7 +28,7 @@ const createUser = async (req, res) => {
     })
 
     res.cookie('token', token, { httpOnly: true })
-    res.status(200).json({ token })
+    res.status(200).json({ token, user })
   }
 }
 
@@ -56,10 +56,8 @@ const login = async (req, res) => {
           expiresIn: '1h',
         })
 
-        console.log('User logged in')
-
         res.cookie('token', token, { httpOnly: true })
-        res.status(200).json({ token })
+        res.status(200).json({ token, user })
       }
     })
   }
@@ -67,7 +65,23 @@ const login = async (req, res) => {
 
 const logout = async (req, res) => {
   res.clearCookie('token')
-  res.status(200).json({ data: 'logout successful' })
+  res.status(200).json({ message: 'logout successful' })
+}
+
+const refreshToken = async (req, res) => {
+  if (req.email) {
+    const payload = { email: req.email }
+    const token = jwt.sign(payload, JWT_SECRET, {
+      expiresIn: '1h',
+    })
+
+    res.cookie('token', token, { httpOnly: true })
+    res.status(200).json({ token })
+  } else {
+    // Token was invalid
+    res.clearCookie('token')
+    res.status(200).end()
+  }
 }
 
 const getUser = async (req, res) => {
@@ -83,4 +97,5 @@ export default {
   login,
   logout,
   getUser,
+  refreshToken,
 }
