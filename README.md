@@ -9,6 +9,20 @@ This is my forked repo from the Alaya dev challenge. Here you'll find my final r
 
 🐳 To make it easier for me to develop locally, I created a `docker-compose.yml` file which runs the whole project as 3 containers (db, server, client) without any further configuration.
 
+---
+
+⚠️ Before running the project, you need to create a `.env` file inside the root directory of the server. There is a `.env.example` file to help you with the required vars.
+
+```
+MONGO_URI=
+PORT=
+JWT_SECRET=
+```
+
+**MONGO_URI** should be `mongodb://127.0.0.1:27017/mern-stack`, **PORT** : `3000` and **JWT_SECRET** can be anything you want.
+
+---
+
 Just run `docker-compose up` inside the root directory of the project.
 
 Client will be available at `http://localhost:8000/`
@@ -77,18 +91,6 @@ If you want to start the project manually (without docker) be sure to install `n
 │       └── regex.js
 └──
 ```
-
----
-
-⚠️ Before running the project, you need to create a `.env` file inside the root directory of the server. There is a `.env.example` file to help you with the required vars.
-
-```
-MONGO_URI=
-PORT=
-JWT_SECRET=
-```
-
-**MONGO_URI** should be `mongodb://127.0.0.1:27017/mern-stack`, **PORT** : `3000` and **JWT_SECRET** can be anything you want.
 
 ### 1 - User account management 🔐
 
