@@ -67,9 +67,29 @@ I also refactored the client app structure to separate every part of the app in 
 └──
 ```
 
+---
+
+Before running the project, you need to create a .env file at the root directory of the server. There is a `.env.example` file to help you with the required vars.
+
+```
+MONGO_URI=
+PORT=
+JWT_SECRET=
+```
+
+MONGO_URI should be `mongodb://127.0.0.1:27017/mern-stack` PORT : `3000` and JWT_SECRET can be anything you want.
+
 ### 1 - User account management
 
-Working on it...
+To manage users I created a Token based system using JWT. When the user is registering for an account, a new db entry is created and their password is hashed using `bcrypt`. Then the server creates a token and send it back to the client as a Cookie.
+
+Every request from the client includes the cookie and on the server I created a middleware to check if token is valid and to secure sensitive routes. (`middlewares/withAuth.js`).
+
+If the token is inexistant or invalid, the server sends back an error telling the user to log in before performing the action (like create a post).
+
+If the token is valid, the middleware adds the user's email in `req.email` to be used by the controllers (for example check if the post to delete is from the same user)
+
+The token is refreshed on every app load.
 
 ### 2 - Picture upload
 
