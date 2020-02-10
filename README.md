@@ -73,7 +73,7 @@ If you want to start the project manually (without docker) be sure to install `n
 
 ---
 
-⚠️ Before running the project, you need to create a .env file at the root directory of the server. There is a `.env.example` file to help you with the required vars.
+⚠️ Before running the project, you need to create a `.env` file inside the root directory of the server. There is a `.env.example` file to help you with the required vars.
 
 ```
 MONGO_URI=
@@ -81,7 +81,7 @@ PORT=
 JWT_SECRET=
 ```
 
-MONGO_URI should be `mongodb://127.0.0.1:27017/mern-stack` PORT : `3000` and JWT_SECRET can be anything you want.
+**MONGO_URI** should be `mongodb://127.0.0.1:27017/mern-stack`, **PORT** : `3000` and **JWT_SECRET** can be anything you want.
 
 ### 1 - User account management 🔐
 
