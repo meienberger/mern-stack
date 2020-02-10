@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles'
+import { Icon } from 'antd'
+import Dragger from 'antd/lib/upload/Dragger'
 // Import Style
 
 const useStyles = makeStyles(theme => ({
@@ -15,11 +17,33 @@ const useStyles = makeStyles(theme => ({
 
 const PostCreateWidget = ({ addPost }) => {
   const [state, setState] = useState({})
+  const [image, setImage] = useState()
   const classes = useStyles()
+
+  const uploadProps = {
+    name: 'file',
+    multiple: false,
+    data: {
+      upload_preset: 'dcfbhnzu',
+    },
+    action: 'https://api.cloudinary.com/v1_1/waasabi/upload',
+    onChange(info) {
+      const { status } = info.file
+
+      if (status !== 'uploading') {
+        // (info.file, info.fileList)
+      }
+      if (status === 'done') {
+        setImage(info.file.response.url)
+      } else if (status === 'error') {
+        alert(`${info.file.name}, l'upload a échoué.`)
+      }
+    },
+  }
 
   const submit = async () => {
     if (state.name && state.title && state.content) {
-      addPost(state)
+      addPost({ ...state, image })
     }
   }
 
@@ -55,6 +79,34 @@ const PostCreateWidget = ({ addPost }) => {
         name="content"
         onChange={handleChange}
       />
+      {image ? (
+        <div
+          style={{
+            display: 'flex',
+            flex: 1,
+            alignItems: 'center',
+            flexDirection: 'column',
+          }}
+        >
+          <img
+            src={image}
+            style={{ width: 300, height: 250, objectFit: 'contain' }}
+          />
+          <a onClick={() => setImage('')}>Edit</a>
+        </div>
+      ) : (
+        <Dragger accept=".png,.jpg,.jpeg,.JPEG,.PNG" {...uploadProps}>
+          <p className="ant-upload-drag-icon">
+            <Icon type="inbox" />
+          </p>
+          <p className="ant-upload-text">
+            Click here or drag and drop to upload image
+          </p>
+          <p className="ant-upload-hint">
+            {'You can also leave this post without any image'}
+          </p>
+        </Dragger>
+      )}
       <Button
         className="mt-4"
         variant="contained"

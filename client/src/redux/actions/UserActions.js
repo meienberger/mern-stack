@@ -30,8 +30,7 @@ export function loginUserRequest({ email, password }) {
       if (res.error) {
         alert(res.error)
       } else {
-        console.log(res.data)
-        setCookie('token', res.data.token)
+        setCookie('token', res.token)
         dispatch(getUserRequest())
       }
     })
@@ -47,6 +46,7 @@ export function signUpRequest({ email, password }) {
       if (res.error) {
         alert(res.error)
       } else {
+        setCookie('token', res.token)
         dispatch(getUserRequest())
       }
     })

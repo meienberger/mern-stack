@@ -31,7 +31,7 @@ function Navbar() {
             </Link>
           ) : (
             <a
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', color: 'white' }}
               onClick={() => dispatch(logoutUserRequest())}
             >
               Logout <span style={{ fontSize: 10 }}>({user.email})</span>

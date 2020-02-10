@@ -5,6 +5,7 @@ import { Route, BrowserRouter, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'antd/dist/antd.css'
 import Navbar from './components/Nav/Navbar'
 import { PostListPage, PostDetailPage, LoginPage } from './pages'
 
