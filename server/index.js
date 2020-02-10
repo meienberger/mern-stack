@@ -1,17 +1,31 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const app = express();
-const apiPort = 3000;
-const db = require('./db');
-const posts = require('./routes/post.routes');
+import express from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import routes from './routes'
+import { PORT } from './config'
+import DBConnection from './db'
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-app.use(bodyParser.json());
+const app = express()
 
-app.use('/api', posts);
+// Options to allow credentials to be sent to server. (cookies)
+const corsOptions = {
+  origin(origin, callback) {
+    callback(null, true)
+  },
+  credentials: true,
+}
 
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(cors(corsOptions))
+app.use(bodyParser.json())
+app.use(cookieParser())
 
-app.listen(apiPort, () => console.log(`Server running on port ${apiPort}`));
+// Routes
+routes(app, '/api')
+
+// Init MongoDB connection
+const dbConn = new DBConnection()
+dbConn.startup()
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
