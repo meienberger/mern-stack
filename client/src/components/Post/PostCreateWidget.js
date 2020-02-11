@@ -24,9 +24,9 @@ const PostCreateWidget = ({ addPost }) => {
     name: 'file',
     multiple: false,
     data: {
-      upload_preset: 'dcfbhnzu',
+      upload_preset: 'x6dmgozr',
     },
-    action: 'https://api.cloudinary.com/v1_1/waasabi/upload',
+    action: 'https://api.cloudinary.com/v1_1/deevent/image/upload',
     onChange(info) {
       const { status } = info.file
 
