@@ -22,7 +22,11 @@ export function PostDetailPage() {
         <div className="col-12">
           <h1>{post.title}</h1>
           <p>By {post.name}</p>
-          <img className="w-100" src={post.image} />
+          <img
+            className="w-100"
+            // style={{ maxHeight: '100vh', objectFit: 'cover' }}
+            src={post.image}
+          />
           <br />
           <br />
           <p>{post.content}</p>

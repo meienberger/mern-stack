@@ -8,13 +8,20 @@ function PostList(props) {
   return (
     <div className="d-flex flex-column w-100">
       <h3 className="mt-4">Posts</h3>
-      {props.posts.map(post => (
-        <PostListItem
-          post={post}
-          key={post.cuid}
-          onDelete={() => props.handleDeletePost(post.cuid)}
-        />
-      ))}
+      {!props.posts.length > 0 && (
+        <p>No post yet ! Be the first one to post !</p>
+      )}
+      {props.posts.map(post => {
+        if (post) {
+          return (
+            <PostListItem
+              post={post}
+              key={post.cuid}
+              onDelete={() => props.handleDeletePost(post.cuid)}
+            />
+          )
+        }
+      })}
     </div>
   )
 }
